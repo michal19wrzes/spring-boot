@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy.NoOp;
-
 @EnableWebSecurity
 public class SecurityConf extends WebSecurityConfigurerAdapter{
 	
@@ -37,7 +35,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 	}
 	@SuppressWarnings("deprecation")
 	@Bean
-	public PasswordEncoder gePasswordEncoder() {return NoOpPasswordEncoder.getInstance();}
+	public PasswordEncoder getPasswordEncoder() {return NoOpPasswordEncoder.getInstance();}
 	
 
 }
