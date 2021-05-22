@@ -19,7 +19,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
+@Setter
 @Getter
 @Entity
 @Table(name = "User")
@@ -37,6 +38,11 @@ public class User implements UserDetails{
 	private boolean enabled = true;
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
+	
+	
+	
+	
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
@@ -45,7 +51,7 @@ public class User implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return userName;
+		return email;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
@@ -71,6 +77,17 @@ public class User implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return enabled;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public User(String userName, String lastName, String email, String password,  UserRole userRole) {
+		super();
+		this.userName = userName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.userRole = userRole;
 	}
 	
 	
