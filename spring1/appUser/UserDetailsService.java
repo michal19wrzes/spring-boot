@@ -1,4 +1,4 @@
-package pl.test1.spring1;
+package pl.test1.spring1.appUser;
 
 
 
@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import pl.test1.spring1.models.User;
+
 
 
 
@@ -39,6 +39,6 @@ public String signUpUser(User user) {
 	user.setPassword(encodedPassword);
 	userRepository.save(user);
 	// TODO Send confirmation TOKEN
-	return "";
+	return "xd";
 }
 }

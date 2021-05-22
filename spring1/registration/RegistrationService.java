@@ -3,9 +3,9 @@ package pl.test1.spring1.registration;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import pl.test1.spring1.UserDetailsService;
-import pl.test1.spring1.models.User;
-import pl.test1.spring1.models.UserRole;
+import pl.test1.spring1.appUser.UserDetailsService;
+import pl.test1.spring1.appUser.User;
+import pl.test1.spring1.appUser.UserRole;
 
 @Service
 @AllArgsConstructor

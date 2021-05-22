@@ -1,4 +1,4 @@
-package pl.test1.spring1;
+package pl.test1.spring1.appUser;
 
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.test1.spring1.models.User;
+
 
 @Repository
 @Transactional(readOnly = true)

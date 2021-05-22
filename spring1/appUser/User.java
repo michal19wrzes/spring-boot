@@ -1,4 +1,4 @@
-package pl.test1.spring1.models;
+package pl.test1.spring1.appUser;
 
 import java.util.Collection;
 import java.util.Collections;
