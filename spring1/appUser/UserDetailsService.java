@@ -2,12 +2,17 @@ package pl.test1.spring1.appUser;
 
 
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import pl.test1.spring1.registration.token.ConfirmationToken;
+import pl.test1.spring1.registration.token.ConfirmationTokenService;
 
 
 
@@ -19,6 +24,8 @@ public class UserDetailsService implements org.springframework.security.core.use
 
 private final UserRepository userRepository;
 private final BCryptPasswordEncoder bCryptPasswordEncoder;
+private final ConfirmationTokenService confirmationTokenService;
+
 
 private final static String USER_NOT_FOUND = "Not found %s";
 @Override
@@ -38,7 +45,16 @@ public String signUpUser(User user) {
 	String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 	user.setPassword(encodedPassword);
 	userRepository.save(user);
+	
+	String token = UUID.randomUUID().toString();
+	ConfirmationToken confirmationToken = new ConfirmationToken(
+			token,
+			LocalDateTime.now(),
+			LocalDateTime.now().plusMinutes(15),
+			user
+			);
+	confirmationTokenService.saveConfirmationToken(confirmationToken);
 	// TODO Send confirmation TOKEN
-	return "xd";
+	return token;
 }
 }
