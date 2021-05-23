@@ -35,7 +35,7 @@ public class User implements UserDetails{
 	private String lastName;
 	private String email;
 	private String password;
-	private boolean enabled = true;
+	private boolean enabled = false;
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 	
@@ -49,33 +49,29 @@ public class User implements UserDetails{
 		return Collections.singletonList(authority);
 	}
 	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
+	public String getUsername() {		
 		return email;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
+		
 		return true;
 	}
 	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
+	public boolean isAccountNonLocked() {		
 		return true;
 	}
 	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
+	public boolean isCredentialsNonExpired() {		
 		return true;
 	}
 	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
+	public String getPassword() {	
 		return password;
 	}
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
+		
 		return enabled;
 	}
 	public String getUserName() {

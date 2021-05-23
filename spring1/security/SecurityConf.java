@@ -22,7 +22,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter{
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
+		
 		http
 				.csrf().disable()
 				.authorizeRequests()					

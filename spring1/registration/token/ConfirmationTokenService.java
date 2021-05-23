@@ -1,12 +1,19 @@
 package pl.test1.spring1.registration.token;
 
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Service
 @AllArgsConstructor
+@Setter
+@Getter
 public class ConfirmationTokenService {
 
 	private final ConfirmationTokenRepository confirmationTokenRepository;
@@ -14,5 +21,17 @@ public class ConfirmationTokenService {
 	
 	public void saveConfirmationToken(ConfirmationToken confirmationToken) {
 		confirmationTokenRepository.save(confirmationToken);
+	}
+
+
+	public Optional<ConfirmationToken> getToken(String token) {
+		return confirmationTokenRepository.findByToken(token);
+	}
+
+
+	public void setConfirmedAt(String token) {
+		getToken(token).orElseThrow(() -> new IllegalStateException("Token not found")).setConfirmedAt(LocalDateTime.now());
+		
+		
 	};
 }

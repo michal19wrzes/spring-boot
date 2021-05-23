@@ -1,11 +1,16 @@
 package pl.test1.spring1.registration;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 import pl.test1.spring1.appUser.UserDetailsService;
 import pl.test1.spring1.appUser.User;
 import pl.test1.spring1.appUser.UserRole;
+import pl.test1.spring1.registration.token.ConfirmationToken;
+import pl.test1.spring1.registration.token.ConfirmationTokenService;
 
 @Service
 @AllArgsConstructor
@@ -13,6 +18,7 @@ public class RegistrationService {
 	
 	private final UserDetailsService userDetailsService;
 	private final EmailValidator emailValidator;
+	private final ConfirmationTokenService confirmationTokenService;
 
 	public String register(RegistrationRequest request) {
 		boolean isValidEmail = emailValidator.test(request.getEmail());
@@ -28,6 +34,28 @@ public class RegistrationService {
 						request.getPassword(),
 						UserRole.USER
 				));
+	}
+	
+	@Transactional
+	public String confirmToken(String token) {
+		ConfirmationToken confirmationToken = confirmationTokenService
+				.getToken(token)
+				.orElseThrow(() -> new IllegalStateException("Token not found"));
+		
+		if(confirmationToken.getConfirmedAt()!=null) {
+			throw new IllegalStateException("Email already confirmed");
+		}
+		
+		LocalDateTime expiredAt = confirmationToken.getExpiredAt();
+		
+		if(expiredAt.isBefore(LocalDateTime.now())) {
+			throw new IllegalStateException("Token expired");
+		}
+		confirmationTokenService.setConfirmedAt(token);
+		userDetailsService.enableUser(
+				confirmationToken.getUser().getEmail());
+		
+		return "confirmed";
 	}
 
 }

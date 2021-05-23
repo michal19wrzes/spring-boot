@@ -54,7 +54,13 @@ public String signUpUser(User user) {
 			user
 			);
 	confirmationTokenService.saveConfirmationToken(confirmationToken);
-	// TODO Send confirmation TOKEN
+	// TODO Send email
 	return token;
+}
+
+public void enableUser(String email) {
+	userRepository.findByEmail(email).orElseThrow(() -> new IllegalStateException("email not found")).setEnabled(true);
+	
+	
 }
 }
