@@ -1,0 +1,8 @@
+Spring boot
+Mysql
+Spring Security (endpoints, authentication, authorization)
+Postman
+Rest Api
+JavaMailSender
+Eclipse
+Maven
